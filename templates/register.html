@@ -1,0 +1,20 @@
+<html>
+   {% extends "sablon.html" %}
+   {% block body %}
+   <body>
+      <div class="jumbotron">
+         <form action = "http://127.0.0.1:5000/new-register" method = "POST">
+
+            <input type = "text" name = "username" class="form-control" placeholder="Username"/><br>
+            <input type = "text" name = "password" class="form-control" placeholder="Password"/><br>
+            <input type = "text" name = "password2" class="form-control" placeholder="Password"/><br>
+            <input type = "text" name = "firstName" class="form-control" placeholder="First Name"/><br>
+            <input type = "text" name = "lastName" class="form-control" placeholder="Last Name"/><br>
+            <input type = "text" name = "eMail" class="form-control" placeholder="E-mail"/><br>
+
+            <input type = "submit" value = "Register" class="btn btn-success"/><br>
+         </form>
+      </div>
+   </body>
+   {% endblock %}
+</html>
