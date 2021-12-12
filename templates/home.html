@@ -1,0 +1,32 @@
+<script>
+    if("{{err}}" == "delete signup cookies")
+    {
+        document.cookie = "usernameCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "passwordCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "firstNameCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "lastNameCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "eMailCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "saltCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+    else if ("{{err}}"!="")
+    {
+        alert("{{err}}");
+    }
+
+</script>
+{% extends "sablon.html" %}
+
+{% block body %}
+
+<body>
+<br>
+<br>
+<br>
+    <p>
+
+        
+    </p>
+
+</body>
+
+{% endblock %}
