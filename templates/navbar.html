@@ -2,30 +2,47 @@
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 
-  <!-- Brand -->
+
   <a class="navbar-brand" href="http://127.0.0.1:5000/">Burak Blog</a>
  
-  <!-- Toggler/collapsibe Button -->
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
  
-  <!-- Navbar links -->
+
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
-
-      <li class="nav-item">
+    {% if session.user %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img id="imgPreview" name="imgPreview" src="" width="40" height="40" class="rounded-circle"> {{ session.user }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/edit-profile">Edit Profile</a>
+              <a class="dropdown-item" href="/logout">Log Out</a>
+            </div>
+        </li>
+    {% else %}
+        <li class="nav-item">
         <a class="nav-link" href="http://127.0.0.1:5000/sign-up">Sign Up</a>
       </li>
-
-       <form action = "http://127.0.0.1:5000/" method = "POST">
-            <input type = "text" name = "username"  placeholder="Username"/>
-            <input type = "password" name = "pass" placeholder="Password"/>
-            <input type = "submit" value = "Login" class="btn btn-success"/>
-       </form>
+      <form action = "http://127.0.0.1:5000/signIn" method = "POST">
+          <input type = "text" name = "username22"  placeholder="Username"/>
+          <input type = "password" name = "password22" placeholder="Password"/>
+          <input type = "submit" value = "sign In" class="btn btn-success"/>
+      </form>
+    {% endif %}
     </ul>
   </div>
 </nav>
+    <script>
 
+    if ("{{session.user}}"!="")
+    {
+        document.getElementById("imgPreview").src = "data:;base64,"+localStorage.getItem('avatar');
+    }
+
+</script>
 
     
