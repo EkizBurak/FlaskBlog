@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends "sablon.html" %}
+
+{% block body %}
+
+    <body>
+        <div class="jumbotron">
+            <form action = "http://127.0.0.1:5000/new-profile" method = "POST" enctype="multipart/form-data">
+                <button type="button"  data-toggle="modal" data-target="#exampleModalLong">
+                    <img id="imgPreview2" name="imgPreview" src="" width="80" height="80" class="rounded-circle" data-target="#exampleModalLong">
+                </button>
+                <br>
+                <br>
+                <h5>First Name</h5>
+                <input type = "text" name = "firstName" class="form-control" placeholder="First Name" value="{{firstName}}"/>
+                <h5>Last Name</h5>
+
+                <input type = "text" name = "lastName" class="form-control" placeholder="Last Name" value="{{lastName}}"/>
+                <h5>E-Mail</h5>
+
+                <input type = "text" name = "eMail" class="form-control" placeholder="E-mail" value="{{eMail}}"/><br>
+
+                <input type = "submit" value = "Accept Change" class="btn btn-success"/><br>
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <dl>
+                                    <p>
+                                        <input type="file" id="myFileInput" name="myFileInput" class="form-control" onchange="document.getElementById('imgPreview2').src = window.URL.createObjectURL(this.files[0])" >
+                                    </p>
+                                </dl>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" value="Save changes"  class="btn btn-primary" data-dismiss="modal" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </body>
+    <script>
+        document.getElementById("imgPreview2").src = "data:;base64,"+localStorage.getItem('avatar');
+    </script>
+{% endblock %}
