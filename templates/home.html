@@ -1,4 +1,5 @@
 <script>
+
     if("{{err}}" == "delete signup cookies")
     {
         document.cookie = "usernameCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -7,6 +8,11 @@
         document.cookie = "lastNameCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "eMailCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "saltCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+    else if ("{{err}}"=="Create Local Storage Avatar")
+    {
+        localStorage.setItem("avatar","{{avatar}}");
+        alert(localStorage.getItem('avatar'));
     }
     else if ("{{err}}"!="")
     {
@@ -17,16 +23,131 @@
 {% extends "sablon.html" %}
 
 {% block body %}
+<head>
 
+</head>
 <body>
-<br>
-<br>
-<br>
-    <p>
+<div id="site">
+    <div id="leftSide">
+        Left Side
+    </div>
 
-        
-    </p>
+    <div id="middleSide">
+        {% if session.user %}
+            <div class="middleSideContent">
+                <div class="middleSideLeft">
+                    <img id="imgPreview3" src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg">
+                    <h4>{{session.user}}</h4>
+                </div>
 
+                <div class="middleSideRight">
+                    <form action = "http://127.0.0.1:5000/post" method = "POST">
+                        <input type = "text" name = "title" placeholder="Title" id="title" value="{{title}}"/>
+
+                        <textarea name="desc" placeholder="what are you thinking?" >{{desc}}</textarea>
+                        <br>
+
+                        <input type = "submit" value = "Post" class="btn btn-success" id="post"/><br>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+        {% for blog in blogs %}
+            <div class="middleSideContent">
+                <div class="middleSideLeft">
+                    <img src="data:;base64,{{blog[3]}}">
+
+                    <h4>{{blog[0]}}</h4>
+                </div>
+
+                <div class="middleSideRight">
+                    <div class="title">{{blog[1]}}</div>
+                    <div class="desc">{{blog[2]}}</div>
+                </div>
+            </div>
+        {% endfor %}
+        <div id="middleSideFooter">
+                <form action = "http://127.0.0.1:5000/" method = "POST">
+                    <button name="page"  type="submit" class="page-item page-link" value="{{1}}">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+                        {% for p in range(pageCount+1) %}
+                            {% if p <1 %}
+                                {% if page>2 %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="{{page-2}}">
+                                        {{page-2}}
+                                    </button>
+                                {% else %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="1">
+                                        1
+                                    </button>
+                                {% endif %}
+
+                            {% elif p <2 %}
+                                {% if page>2 %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="{{page-1}}">
+                                        {{page-1}}
+                                    </button>
+                                {% else %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="2">
+                                        2
+                                    </button>
+                                {% endif %}
+                            {% elif p <3 %}
+                                {% if page>2 %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="{{page}}">
+                                        {{page}}
+                                    </button>
+                                {% else %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="3">
+                                        3
+                                    </button>
+
+                                {% endif %}
+
+                            {% elif p <4 %}
+                                {% if page>2 %}
+                                    {% if page+1<=pageCount %}
+                                        <button name="page"  type="submit" class="page-item page-link" value="{{page+1}}">
+                                            {{page+1}}
+                                        </button>
+                                    {% endif %}
+                                {% else %}
+                                    <button name="page"  type="submit" class="page-item page-link" value="{{4}}">
+                                    4
+                                    </button>
+                                {% endif %}
+
+                            {% elif p <5 %}
+                                    {% if page>2 %}
+                                        {% if page+2<=pageCount %}
+                                        <button name="page"  type="submit" class="page-item page-link" value="{{page+2}}">
+                                            {{page+2}}
+                                        </button>
+                                        {% endif %}
+                                    {% else %}
+                                        <button name="page"  type="submit" class="page-item page-link" value="5">
+                                            5
+                                        </button>
+                                    {% endif %}
+                            {% endif %}
+                         {% endfor %}
+                    <button name="page"  type="submit" class="page-item page-link" value="{{pageCount}}">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    <div id="rightSide">
+        Right Side
+    </div>
+</div>
 </body>
 
+    <script>
+        document.getElementById("imgPreview3").src = "data:;base64,"+localStorage.getItem('avatar');
+    </script>
 {% endblock %}
